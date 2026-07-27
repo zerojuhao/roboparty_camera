@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-only
 # RealSense D435i parameters for rs_launch.py (config_file)
 # Depth topic: /camera/camera/depth/image_rect_raw (must match depth_topic in configs/parkour.yaml)
 

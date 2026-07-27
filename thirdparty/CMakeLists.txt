@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-only
+
 include(FetchContent)
 
 if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
