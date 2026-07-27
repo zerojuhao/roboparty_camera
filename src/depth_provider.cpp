@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2025-2026 Luo1imasi
 
 #include "depth_provider.hpp"
