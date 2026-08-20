@@ -36,7 +36,7 @@ def launch_setup(context, *args, **kwargs):
         )
 
     policy_file = policy if policy.endswith(".yaml") else f"{policy}.yaml"
-    camera_share = get_package_share_directory("camera")
+    camera_share = get_package_share_directory("roboparty_camera")
     depth_config = os.path.join(camera_share, "configs", policy_file)
     depth_model_dir = os.path.join(camera_share, "models")
     realsense_config = (
@@ -65,7 +65,7 @@ def launch_setup(context, *args, **kwargs):
 
     actions.append(
         Node(
-            package="camera",
+            package="roboparty_camera",
             executable="depth_node",
             name="depth_node",
             parameters=[

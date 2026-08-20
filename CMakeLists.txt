@@ -2,7 +2,7 @@
 # Copyright (C) 2025-2026 Luo1imasi
 
 cmake_minimum_required(VERSION 3.16)
-project(camera)
+project(roboparty_camera)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native")
 set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
@@ -47,11 +47,5 @@ install(TARGETS depth_node
 
 install(DIRECTORY configs models launch
   DESTINATION share/${PROJECT_NAME})
-
-install(FILES
-  ${ONNXRUNTIME_LIB_FILE}
-  ${ONNXRUNTIME_LIB_FILE}.1
-  ${ONNXRUNTIME_LIB_FILE}.1.21.0
-  DESTINATION lib)
 
 ament_package()

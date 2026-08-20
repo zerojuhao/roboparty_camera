@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = optimize=-lto
+export AMENT_PREFIX_PATH=/opt/ros/humble
+export CMAKE_PREFIX_PATH=/opt/roboparty:/opt/ros/humble
+export PYTHONPATH=/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+export LD_LIBRARY_PATH := /opt/ros/humble/lib:$(LD_LIBRARY_PATH)
+export CCACHE_DISABLE = 1
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DCMAKE_INSTALL_PREFIX=/opt/roboparty \
+		-DCMAKE_PREFIX_PATH="/opt/roboparty;/opt/ros/humble" \
+		-DCMAKE_BUILD_TYPE=Release
+
+override_dh_install:
+	dh_install
+	find debian/roboparty-camera/opt/roboparty/share/roboparty_camera -type f \( -name "*.onnx" -o -name "*.yaml" \) -exec chmod 644 {} \; 2>/dev/null || true
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -l$(CURDIR)/thirdparty/onnxruntime/lib --ignore-missing-info
