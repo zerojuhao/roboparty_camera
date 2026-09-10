@@ -9,9 +9,9 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            os: ubuntu-22.04
+            os: ubuntu-24.04
           - arch: arm64
-            os: [self-hosted, rk3588]
+            os: [self-hosted, Linux, ARM64, "24.04"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
@@ -48,11 +48,11 @@ jobs:
 
           echo "✅ Tag matches changelog: v$TAG_VERSION"
 
-      - name: Setup ROS 2 Humble
+      - name: Setup ROS 2 Jazzy
         if: matrix.arch == 'amd64'
         uses: ros-tooling/setup-ros@v0.7
         with:
-          required-ros-distributions: humble
+          required-ros-distributions: jazzy
 
       - name: Install build dependencies
         run: |
@@ -60,12 +60,12 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             build-essential cmake ccache dpkg-dev debhelper devscripts \
             git wget pkg-config libopencv-dev \
-            ros-humble-ament-cmake ros-humble-rclcpp \
-            ros-humble-std-msgs ros-humble-sensor-msgs ros-humble-std-srvs
+            ros-jazzy-ament-cmake ros-jazzy-rclcpp \
+            ros-jazzy-std-msgs ros-jazzy-sensor-msgs ros-jazzy-std-srvs
 
       - name: Build deb package
         run: |
-          . /opt/ros/humble/setup.sh
+          . /opt/ros/jazzy/setup.sh
           dpkg-buildpackage -us -uc -b
           mv ../*.deb .
           VERSION=$(dpkg-parsechangelog -S Version | cut -d'-' -f1 || echo "unknown")
